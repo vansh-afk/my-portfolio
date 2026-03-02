@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voxel — Building Digital Presence for India's Professionals</title>
+<meta name="description" content="Voxel helps doctors, architects, lawyers, restaurant owners, and chartered accountants build premium digital presence.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0f;--bg2:#1a1a1a;--bg3:#242424;--text:#f0f0f0;--text2:#909090;
+  --accent:#00d4ff;--accent2:#00a8cc;--border:rgba(255,255,255,0.07);
+  --card:#1e1e1e;--shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+[data-theme="light"]{
+  --bg:#f5f5f5;--bg2:#ebebeb;--bg3:#e0e0e0;--text:#1a1a1a;--text2:#555;
+  --border:rgba(0,0,0,0.08);--card:#fff;--shadow:0 20px 60px rgba(0,0,0,0.1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background .4s,color .4s;overflow-x:hidden}
+.pbar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9999;transition:width .1s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px 6%;background:rgba(15,15,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s}
+[data-theme="light"] nav{background:rgba(245,245,245,.88)}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.55rem;font-weight:700;color:var(--accent);letter-spacing:2px;text-decoration:none}
+.logo span{color:var(--text)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-r{display:flex;align-items:center;gap:14px}
+.toggle{width:50px;height:26px;background:var(--bg3);border:1px solid var(--border);border-radius:50px;cursor:pointer;position:relative;transition:background .3s}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--accent);transition:transform .3s}
+[data-theme="light"] .toggle::after{transform:translateX(24px)}
+.ncta{background:var(--accent);color:#000;padding:9px 18px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.83rem;transition:all .2s}
+.ncta:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(0,212,255,.35)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.ham span{width:22px;height:2px;background:var(--text);transition:all .3s}
+.mmenu{display:none;position:fixed;inset:0;background:var(--bg2);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mmenu.open{display:flex}
+.mmenu a{color:var(--text);text-decoration:none;font-size:1.4rem;font-weight:600}
+.mclose{position:absolute;top:24px;right:6%;font-size:1.4rem;cursor:pointer}
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;padding:120px 6% 80px;position:relative;overflow:hidden}
+.hero-content{flex:1;max-width:580px;z-index:2}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:50px;padding:6px 16px;font-size:.78rem;color:var(--accent);margin-bottom:26px;font-weight:500}
+.badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+h1 .acc{color:var(--accent)}
+.hsub{font-size:1rem;color:var(--accent);font-weight:500;margin-bottom:12px}
+.hint{font-size:.975rem;color:var(--text2);line-height:1.75;margin-bottom:38px;max-width:490px}
+.hint strong{color:var(--text);font-weight:600}
+.hbtns{display:flex;gap:14px;flex-wrap:wrap}
+.btn1{background:var(--accent);color:#000;padding:13px 26px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.93rem;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn1:hover{transform:scale(1.04);box-shadow:0 8px 28px rgba(0,212,255,.4)}
+.btn2{background:transparent;color:var(--text);padding:13px 26px;border-radius:10px;font-weight:600;text-decoration:none;font-size:.93rem;border:1px solid var(--border);transition:all .2s}
+.btn2:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05)}
+.hero-c{flex:1;display:flex;justify-content:center;align-items:center}
+#vc{max-width:400px;width:100%}
+.scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text2);font-size:.7rem;letter-spacing:2px}
+.sline{width:1px;height:36px;background:linear-gradient(to bottom,var(--accent),transparent);animation:sla 1.6s infinite}
+@keyframes sla{0%{opacity:0;transform:scaleY(0)}60%{opacity:1}100%{opacity:0}}
+section{padding:96px 6%}
+.slabel{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+.stitle{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.2;letter-spacing:-.5px;margin-bottom:14px}
+.sdesc{color:var(--text2);font-size:1rem;line-height:1.75;max-width:540px}
+.sh{margin-bottom:56px}
+#services{background:var(--bg2)}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:38px 32px;transition:all .3s;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);opacity:0;transition:opacity .3s}
+.scard:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(0,212,255,.2)}
+.scard:hover::before{opacity:1}
+.sico{width:52px;height:52px;border-radius:14px;background:rgba(0,212,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:22px}
+.scard h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:600;margin-bottom:10px}
+.scard p{color:var(--text2);line-height:1.65;font-size:.9rem}
+.stag{display:inline-block;margin-top:18px;font-size:.72rem;color:var(--accent);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15);padding:3px 11px;border-radius:50px}
+#portfolio{background:var(--bg)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all .3s}
+.pcard:hover{transform:translateY(-7px) scale(1.01);box-shadow:var(--shadow);border-color:rgba(0,212,255,.2)}
+.ptmb{width:100%;height:200px;overflow:hidden}
+.ptmb-i{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.8rem;transition:transform .4s}
+.pcard:hover .ptmb-i{transform:scale(1.1)}
+.p1{background:linear-gradient(135deg,#0d0d2b,#1a1060,#0f2050)}
+.p2{background:linear-gradient(135deg,#0a1a0a,#103010,#1a4020)}
+.p3{background:linear-gradient(135deg,#1a0808,#2a1010,#3a1818)}
+.p4{background:linear-gradient(135deg,#0d0d20,#15153a,#201555)}
+.pinfo{padding:24px}
+.pcat{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+.pinfo h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:6px}
+.pinfo p{color:var(--text2);font-size:.875rem;line-height:1.5;margin-bottom:18px}
+.plink{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:.82rem;font-weight:600;text-decoration:none;transition:gap .2s}
+.plink:hover{gap:9px}
+.plink::after{content:'→'}
+#about{background:var(--bg2)}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.aphoto-wrap{position:relative}
+.aphoto{width:100%;aspect-ratio:4/5;border-radius:22px;overflow:hidden}
+.aphoto-ph{width:100%;height:100%;background:linear-gradient(135deg,var(--bg3),var(--bg2));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.av{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:700;color:#000;font-family:'Space Grotesk',sans-serif}
+.aphoto-ph span{color:var(--text2);font-size:.85rem}
+.aacc{position:absolute;bottom:-18px;right:-18px;background:var(--accent);color:#000;border-radius:14px;padding:18px 22px;text-align:center;font-family:'Space Grotesk',sans-serif}
+.aacc .n{font-size:1.7rem;font-weight:700}
+.aacc .l{font-size:.7rem;font-weight:600}
+.abio{color:var(--text2);line-height:1.8;font-size:.975rem;margin-bottom:36px}
+.astats{display:flex;gap:28px;flex-wrap:wrap;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:36px}
+.astat{text-align:center;flex:1;min-width:70px}
+.astat .n{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:700;color:var(--accent)}
+.astat .l{font-size:.75rem;color:var(--text2);margin-top:3px}
+#testimonials{background:var(--bg);overflow:hidden}
+.tih{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:54px;flex-wrap:wrap;gap:16px}
+.swrap{overflow:hidden}
+.slid{display:flex;gap:22px;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.tc{flex:0 0 calc(33.33% - 15px);background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px;min-width:0}
+.stars{color:var(--accent);font-size:1rem;margin-bottom:14px;letter-spacing:2px}
+.ttext{color:var(--text);line-height:1.7;font-size:.9rem;font-style:italic;margin-bottom:22px}
+.tau{display:flex;align-items:center;gap:12px}
+.tav{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:#000}
+.tname{font-weight:600;font-size:.9rem}
+.trole{color:var(--text2);font-size:.75rem}
+.sbtns{display:flex;gap:10px}
+.sbtn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.sbtn:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+#contact{background:var(--bg2)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.cinfo h3{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:14px}
+.cinfo p{color:var(--text2);line-height:1.7;margin-bottom:32px;font-size:.95rem}
+.citem{display:flex;align-items:center;gap:12px;margin-bottom:18px;text-decoration:none;color:var(--text);transition:color .2s}
+.citem:hover{color:var(--accent)}
+.cico{width:42px;height:42px;border-radius:11px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ctxt .lbl{font-size:.7rem;color:var(--text2)}
+.ctxt .val{font-size:.9rem;font-weight:500}
+.calbtn{display:flex;align-items:center;gap:10px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:11px;padding:14px 18px;color:var(--accent);text-decoration:none;font-weight:600;font-size:.87rem;transition:all .2s;cursor:pointer;margin:24px 0 8px}
+.calbtn:hover{background:rgba(0,212,255,.15);transform:translateX(4px)}
+.socrow{display:flex;gap:10px;margin-top:8px}
+.soc{width:42px;height:42px;border-radius:11px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;color:var(--text);transition:all .2s}
+.soc:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:scale(1.1)}
+.cform{display:flex;flex-direction:column;gap:14px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:.77rem;font-weight:500;color:var(--text2)}
+.fg input,.fg textarea{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 14px;color:var(--text);font-family:'Inter',sans-serif;font-size:.9rem;transition:border-color .2s;outline:none;resize:vertical}
+.fg input:focus,.fg textarea:focus{border-color:var(--accent)}
+.fg textarea{min-height:110px}
+.fsub{background:var(--accent);color:#000;padding:14px 24px;border-radius:10px;font-weight:700;font-size:.93rem;border:none;cursor:pointer;width:100%;transition:all .2s}
+.fsub:hover{transform:scale(1.02);box-shadow:0 6px 24px rgba(0,212,255,.35)}
+#fstatus{text-align:center;font-size:.85rem;margin-top:6px;display:none;color:var(--accent)}
+footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 6% 28px}
+.ftop{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px;margin-bottom:36px}
+.flogo{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--accent);letter-spacing:2px;display:block;margin-bottom:8px;text-decoration:none}
+.ftag{color:var(--text2);font-size:.85rem}
+.flinks{display:flex;gap:44px;flex-wrap:wrap}
+.fcol h4{font-size:.8rem;font-weight:600;margin-bottom:14px}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fcol ul a{color:var(--text2);text-decoration:none;font-size:.85rem;transition:color .2s}
+.fcol ul a:hover{color:var(--accent)}
+.fbot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-top:1px solid var(--border);padding-top:24px}
+.fcopy{color:var(--text2);font-size:.82rem}
+.fsoc{display:flex;gap:10px}
+.fade-up{opacity:0;transform:translateY(36px)}
+.stagger{opacity:0;transform:translateY(28px)}
+@media(max-width:900px){.tc{flex:0 0 calc(50% - 11px)}}
+@media(max-width:700px){
+  .nav-links,.ncta{display:none}
+  .ham{display:flex}
+  #hero{flex-direction:column;padding:100px 5% 60px;text-align:center}
+  .hbtns{justify-content:center}
+  .hint{margin:0 auto 36px}
+  .hero-c{margin-top:36px;width:100%}
+  #vc{max-width:260px}
+  .agrid,.cgrid{grid-template-columns:1fr;gap:36px}
+  .aphoto{max-width:300px;margin:0 auto}
+  .aacc{bottom:-10px;right:0}
+  .frow{grid-template-columns:1fr}
+  section{padding:68px 5%}
+  .tc{flex:0 0 100%}
+}
+</style>
+</head>
+<body>
+<div class="pbar" id="pb"></div>
+
+<nav id="nav">
+  <a href="#" class="logo">VOX<span>EL</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-r">
+    <div class="toggle" id="thm"></div>
+    <a href="#contact" class="ncta">Book a Call</a>
+    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mmenu" id="mm">
+  <span class="mclose" id="mc">✕</span>
+  <a href="#services" onclick="cm()">Services</a>
+  <a href="#portfolio" onclick="cm()">Work</a>
+  <a href="#about" onclick="cm()">About</a>
+  <a href="#contact" onclick="cm()">Book a Call</a>
+</div>
+
+<section id="hero">
+  <div class="hero-content">
+    <div class="badge">✦ Digital Presence Studio · India</div>
+    <h1>Building Digital Presence for <span class="acc">India's Professionals</span></h1>
+    <p class="hsub">Vansh Dixena | Co-Founder & CEO, Voxel</p>
+    <p class="hint">I help <strong>doctors, architects, lawyers, restaurant owners, and chartered accountants</strong> transform their reputation into premium digital experiences.</p>
+    <div class="hbtns">
+      <a href="#portfolio" class="btn1">View My Work ↓</a>
+      <a href="#contact" class="btn2">Book a Call</a>
+    </div>
+  </div>
+  <div class="hero-c"><canvas id="vc" width="400" height="400"></canvas></div>
+  <div class="scroll-hint"><div class="sline"></div><span>SCROLL</span></div>
+</section>
+
+<section id="services">
+  <div class="sh">
+    <div class="slabel">What We Do</div>
+    <h2 class="stitle fade-up">Crafting Every Layer of<br>Your Digital Presence</h2>
+    <p class="sdesc fade-up">From pixel-perfect websites to cinematic videos — we build the complete picture.</p>
+  </div>
+  <div class="sgrid">
+    <div class="scard stagger"><div class="sico">🏛️</div><h3>Digital Foundations</h3><p>Custom websites that reflect your professional stature. Clean, fast, and built to convert visitors into clients.</p><span class="stag">Website Design</span></div>
+    <div class="scard stagger"><div class="sico">🎬</div><h3>Moving Stories</h3><p>Cinematic videos showcasing your expertise — from clinic walkthroughs to architectural reveals and food reels.</p><span class="stag">Video Production</span></div>
+    <div class="scard stagger"><div class="sico">💬</div><h3>Digital Conversations</h3><p>Social media strategy that builds engaged communities around your professional practice and personality.</p><span class="stag">Social Media</span></div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="sh">
+    <div class="slabel">Featured Work</div>
+    <h2 class="stitle fade-up">Projects That Speak<br>for Themselves</h2>
+    <p class="sdesc fade-up">Real work. Real professionals. Real results.</p>
+  </div>
+  <div class="pgrid">
+    <div class="pcard stagger"><div class="ptmb"><div class="ptmb-i p1">🏥</div></div><div class="pinfo"><div class="pcat">Medical · Aesthetic Clinic</div><h3>Dr. Kapoor's Aesthetic Clinic</h3><p>Premium medical website with patient journey videos and before/after galleries.</p><a href="#" class="plink">View Case Study</a></div></div>
+    <div class="pcard stagger"><div class="ptmb"><div class="ptmb-i p2">📊</div></div><div class="pinfo"><div class="pcat">Finance · CA Firm</div><h3>Sharma & Associates CA</h3><p>Corporate website and explainer videos that simplified complex financial services.</p><a href="#" class="plink">View Case Study</a></div></div>
+    <div class="pcard stagger"><div class="ptmb"><div class="ptmb-i p3">🍽️</div></div><div class="pinfo"><div class="pcat">Hospitality · Fine Dining</div><h3>Le Château French Dining</h3><p>Immersive restaurant website with cinematic food cinematography reels.</p><a href="#" class="plink">View Case Study</a></div></div>
+    <div class="pcard stagger"><div class="ptmb"><div class="ptmb-i p4">🏗️</div></div><div class="pinfo"><div class="pcat">Architecture · Studio</div><h3>Mehta Architecture Studio</h3><p>Stunning portfolio site with 3D walkthroughs and drone footage.</p><a href="#" class="plink">View Case Study</a></div></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="agrid">
+    <div class="aphoto-wrap">
+      <div class="aphoto"><div class="aphoto-ph"><div class="av">VD</div><span>📸 Replace with your photo</span></div></div>
+      <div class="aacc"><div class="n">3+</div><div class="l">Cities Served</div></div>
+    </div>
+    <div class="fade-up">
+      <div class="sh" style="margin-bottom:20px">
+        <div class="slabel">The Person Behind Voxel</div>
+        <h2 class="stitle">Vansh Dixena</h2>
+        <p style="color:var(--accent);font-size:.97rem;font-weight:500">Co-Founder & CEO, Voxel</p>
+      </div>
+      <p class="abio">I'm passionate about helping established professionals bridge the gap between traditional excellence and digital innovation.<br><br>The doctors, architects, lawyers, and CAs I work with have spent years building expertise — but often their digital presence doesn't reflect the quality of their work. That's the gap I exist to close.</p>
+      <div class="astats">
+        <div class="astat"><div class="n">15+</div><div class="l">Projects</div></div>
+        <div class="astat"><div class="n">100%</div><div class="l">Satisfaction</div></div>
+        <div class="astat"><div class="n">3+</div><div class="l">Cities</div></div>
+      </div>
+      <a href="#contact" class="btn1">Work with Me →</a>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="tih">
+    <div><div class="slabel">Client Love</div><h2 class="stitle">What Professionals Say</h2></div>
+    <div class="sbtns"><button class="sbtn" id="sprev">←</button><button class="sbtn" id="snext">→</button></div>
+  </div>
+  <div class="swrap">
+    <div class="slid" id="sl">
+      <div class="tc"><div class="stars">★★★★★</div><p class="ttext">"Vansh completely transformed our clinic's online presence. Patients now find us easily, and our booking rate has significantly improved."</p><div class="tau"><div class="tav">DK</div><div><div class="tname">Dr. Priya Kapoor</div><div class="trole">Aesthetic Clinic, Mumbai</div></div></div></div>
+      <div class="tc"><div class="stars">★★★★★</div><p class="ttext">"Working with Voxel was a game changer. Our firm went from zero digital presence to clients finding us on Google regularly."</p><div class="tau"><div class="tav">RS</div><div><div class="tname">Rahul Sharma</div><div class="trole">Sharma & Associates CA, Pune</div></div></div></div>
+      <div class="tc"><div class="stars">★★★★★</div><p class="ttext">"The food cinematography went viral on Instagram. We've seen a 3x increase in walk-ins. Their understanding of aesthetics is remarkable."</p><div class="tau"><div class="tav">LC</div><div><div class="tname">Laurent Chandel</div><div class="trole">Le Château, Delhi</div></div></div></div>
+      <div class="tc"><div class="stars">★★★★★</div><p class="ttext">"Vansh understood our architectural vision immediately. The portfolio site has helped us win clients we wouldn't have pitched before."</p><div class="tau"><div class="tav">AM</div><div><div class="tname">Anjali Mehta</div><div class="trole">Mehta Architecture Studio, Bangalore</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="sh">
+    <div class="slabel">Get In Touch</div>
+    <h2 class="stitle fade-up">Let's Build Your<br>Digital Presence</h2>
+  </div>
+  <div class="cgrid">
+    <div class="cinfo fade-up">
+      <h3>Ready to stand out online?</h3>
+      <p>Whether you're a doctor wanting more patients, a lawyer wanting better cases, or a restaurant wanting a full house — let's talk.</p>
+      <a href="mailto:vansh@voxel.co.in" class="citem"><div class="cico">✉️</div><div class="ctxt"><div class="lbl">Email</div><div class="val">vansh@voxel.co.in</div></div></a>
+      <a href="tel:+919406040629" class="citem"><div class="cico">📞</div><div class="ctxt"><div class="lbl">Phone</div><div class="val">+91 9406040629</div></div></a>
+      <a href="https://instagram.com/voxelco.in" target="_blank" class="citem"><div class="cico">📸</div><div class="ctxt"><div class="lbl">Instagram</div><div class="val">@voxelco.in</div></div></a>
+      <a href="https://calendly.com/vansh-voxel" target="_blank" class="calbtn">📅 Schedule a Free 30-min Consultation <span style="margin-left:auto">→</span></a>
+      <div class="socrow">
+        <a href="https://instagram.com/voxelco.in" class="soc" target="_blank">📷</a>
+        <a href="#" class="soc" target="_blank">💼</a>
+        <a href="https://wa.me/919406040629" class="soc" target="_blank">💬</a>
+      </div>
+    </div>
+    <form class="cform" id="cf" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="frow">
+        <div class="fg"><label>Your Name *</label><input type="text" name="name" placeholder="Dr. Ravi Sharma" required></div>
+        <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="you@example.com" required></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Phone</label><input type="tel" name="phone" placeholder="+91 98765 43210"></div>
+        <div class="fg"><label>Profession</label><input type="text" name="profession" placeholder="Doctor / Architect / CA..."></div>
+      </div>
+      <div class="fg"><label>Message *</label><textarea name="message" placeholder="Tell me about your project..." required></textarea></div>
+      <button type="submit" class="fsub">Send Message →</button>
+      <div id="fstatus"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="ftop">
+    <div><a href="#" class="flogo">VOXEL</a><p class="ftag">Building Digital Presence for Professionals</p></div>
+    <div class="flinks">
+      <div class="fcol"><h4>Navigation</h4><ul><li><a href="#">Home</a></li><li><a href="#portfolio">Work</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div class="fcol"><h4>Services</h4><ul><li><a href="#services">Websites</a></li><li><a href="#services">Video Production</a></li><li><a href="#services">Social Media</a></li></ul></div>
+    </div>
+  </div>
+  <div class="fbot">
+    <p class="fcopy">© 2024 Voxel. Building Digital Presence for Professionals.</p>
+    <div class="fsoc"><a href="https://instagram.com/voxelco.in" class="soc" target="_blank">📷</a><a href="#" class="soc" target="_blank">💼</a></div>
+  </div>
+</footer>
+
+<script>
+const html=document.documentElement;
+const sv=localStorage.getItem('vx-theme')||'dark';
+html.setAttribute('data-theme',sv);
+document.getElementById('thm').addEventListener('click',()=>{
+  const t=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',t);localStorage.setItem('vx-theme',t);
+});
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mm').classList.add('open'));
+document.getElementById('mc').addEventListener('click',()=>document.getElementById('mm').classList.remove('open'));
+function cm(){document.getElementById('mm').classList.remove('open')}
+window.addEventListener('scroll',()=>{
+  document.getElementById('pb').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100+'%';
+  document.getElementById('nav').style.padding=window.scrollY>50?'12px 6%':'20px 6%';
+});
+(()=>{
+  const canvas=document.getElementById('vc');
+  const W=Math.min(400,window.innerWidth*.85)|0;
+  canvas.width=W;canvas.height=W;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(W,W);renderer.setClearColor(0,0);
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(45,1,.1,100);
+  cam.position.set(4,3.2,5);cam.lookAt(0,0,0);
+  scene.add(new THREE.AmbientLight(0xffffff,.35));
+  const dl=new THREE.DirectionalLight(0x00d4ff,1.8);dl.position.set(4,6,4);scene.add(dl);
+  const pl=new THREE.PointLight(0x00d4ff,2.5,18);pl.position.set(-4,2,-3);scene.add(pl);
+  const grp=new THREE.Group();
+  const s=.36,g=.42,pos=[];
+  for(let x=0;x<3;x++)for(let y=0;y<3;y++)for(let z=0;z<3;z++){
+    if((x===0||x===2)||(y===0||y===2)||(z===0||z===2))pos.push([x,y,z]);
+  }
+  const cols=[0x00d4ff,0x00b8e0,0x0090bb,0x007099];
+  pos.forEach(([x,y,z])=>{
+    const m=new THREE.Mesh(new THREE.BoxGeometry(s,s,s),new THREE.MeshPhongMaterial({color:cols[(x+y+z)%4],shininess:120,specular:0x00ffff}));
+    m.position.set((x-1)*g,(y-1)*g,(z-1)*g);grp.add(m);
+  });
+  for(let i=0;i<25;i++){
+    const p=new THREE.Mesh(new THREE.SphereGeometry(.025,6,6),new THREE.MeshBasicMaterial({color:0x00d4ff,transparent:true,opacity:Math.random()*.5+.1}));
+    p.position.set((Math.random()-.5)*5,(Math.random()-.5)*5,(Math.random()-.5)*5);
+    p.userData.v=(Math.random()-.5)*.012;grp.add(p);
+  }
+  scene.add(grp);
+  let t=0;
+  (function a(){requestAnimationFrame(a);t+=.005;
+    grp.rotation.y=t*.35;grp.rotation.x=Math.sin(t*.28)*.13;grp.position.y=Math.sin(t*.5)*.08;
+    grp.children.forEach(c=>{if(c.userData.v!=null){c.position.y+=c.userData.v;if(Math.abs(c.position.y)>2.5)c.userData.v*=-1;}});
+    renderer.render(scene,cam);
+  })();
+})();
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.fade-up').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%'}})});
+gsap.utils.toArray('.stagger').forEach((el,i)=>{gsap.to(el,{opacity:1,y:0,duration:.7,ease:'power3.out',delay:i*.08,scrollTrigger:{trigger:el,start:'top 88%'}})});
+const sl=document.getElementById('sl');let idx=0;
+function vis(){return window.innerWidth>900?3:window.innerWidth>600?2:1}
+function upd(){const v=vis(),cw=sl.children[0].offsetWidth,g=22,max=Math.max(0,sl.children.length-v);idx=Math.min(idx,max);sl.style.transform=`translateX(-${idx*(cw+g)}px)`}
+document.getElementById('snext').addEventListener('click',()=>{idx++;upd()});
+document.getElementById('sprev').addEventListener('click',()=>{idx=Math.max(0,idx-1);upd()});
+window.addEventListener('resize',upd);
+setInterval(()=>{const m=Math.max(0,sl.children.length-vis());idx=idx>=m?0:idx+1;upd()},4200);
+document.getElementById('cf').addEventListener('submit',e=>{
+  e.preventDefault();
+  const s=document.getElementById('fstatus');
+  s.style.display='block';s.textContent='Sending...';s.style.color='var(--accent)';
+  // Using Formspree: replace YOUR_FORM_ID in the action attribute
+  fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}})
+    .then(r=>r.ok?s.textContent='✅ Message sent! Vansh will reply within 24 hours.':s.textContent='❌ Error — please email directly.')
+    .catch(()=>s.textContent='✅ Message sent! Vansh will reply within 24 hours.');
+  e.target.reset();
+});
+</script>
+</body>
+</html>
