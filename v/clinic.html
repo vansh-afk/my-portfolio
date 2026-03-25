@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Kapoor Aesthetic Clinic | Ultra Premium</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+        
+        :root {
+            --bg-color: #FDFcF0;
+            --text-color: #1A202C;
+            --accent: #B79962;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { display: none; }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 400; }
+        .huge-text { font-size: 8vw; line-height: 0.9; margin: 0; text-transform: uppercase; letter-spacing: -2px; }
+        
+        /* Preloader */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--text-color); color: var(--bg-color);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10000; font-family: 'Playfair Display'; font-size: 3rem;
+        }
+
+        /* Nav */
+        nav { padding: 2rem 5%; display: flex; justify-content: space-between; position: fixed; width: 90%; z-index: 100; mix-blend-mode: difference; color: white; }
+        .logo { font-size: 1.5rem; font-family: 'Playfair Display'; }
+
+        /* Hero */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 120%; object-fit: cover; opacity: 0.6; filter: brightness(0.8); z-index: -1; }
+        .hero-text-container { overflow: hidden; }
+        
+        /* Sections */
+        .section { padding: 10rem 5%; }
+        
+        /* About (Sticky Layout) */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+        .about-left { position: sticky; top: 20vh; height: fit-content; }
+        .about-right p { font-size: 2rem; line-height: 1.5; margin-bottom: 3rem; }
+        .about-right img { width: 100%; height: 600px; object-fit: cover; border-radius: 12px; margin-bottom: 2rem; }
+
+        /* Horizontal Scroll Section */
+        .horizontal-container { overflow: hidden; padding: 5rem 0; background: var(--text-color); color: var(--bg-color); }
+        .horizontal-wrapper { display: flex; width: 300%; gap: 5vw; padding: 0 5vw; }
+        .service-card { width: 40vw; flex-shrink: 0; }
+        .service-card img { width: 100%; height: 50vh; object-fit: cover; border-radius: 8px; margin-bottom: 2rem; }
+        .service-card h3 { font-size: 3rem; margin-bottom: 1rem; color: var(--accent); }
+
+        /* Full Screen Image Reveal */
+        .image-reveal { height: 150vh; position: relative; }
+        .image-reveal-inner { width: 80%; height: 80vh; position: sticky; top: 10vh; left: 10%; overflow: hidden; border-radius: 20px; }
+        .image-reveal-img { width: 100%; height: 120%; object-fit: cover; position: absolute; top: -10%; transform: scale(1.2); }
+
+        /* Footer */
+        footer { padding: 10rem 5%; text-align: center; background: var(--text-color); color: var(--bg-color); }
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="preloader-text">Aesthetic Perfection.</div>
+    </div>
+
+    <nav>
+        <div class="logo">DR. KAPOOR</div>
+        <div>Menu</div>
+    </nav>
+
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2000&auto=format&fit=crop" class="hero-img gs-hero-img" alt="Clinic">
+        <div class="hero-text-container">
+            <h1 class="huge-text gs-hero-text" style="color: white;">Timeless<br>Elegance</h1>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="about-grid">
+            <div class="about-left gs-reveal">
+                <h2 style="font-size: 4rem; color: var(--accent); margin-top:0;">The Art of<br>Rejuvenation</h2>
+            </div>
+            <div class="about-right">
+                <p class="gs-reveal">At Dr. Kapoor's Aesthetic Clinic, we believe that true beauty is not created—it is revealed. Located in the heart of New Delhi, our ultra-luxurious facility offers world-class non-invasive and surgical aesthetic transformations.</p>
+                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop" class="gs-parallax-img" alt="Procedure">
+                <p class="gs-reveal">Every face tells a story. We utilize state-of-the-art FDA-approved technology combined with masterful geometric precision to elevate your natural features, ensuring results that are subtle, breathtaking, and definitively you.</p>
+                <img src="https://images.unsplash.com/photo-1512675828443-4f454c42253a?q=80&w=1000&auto=format&fit=crop" class="gs-parallax-img" alt="Care">
+            </div>
+        </div>
+    </div>
+
+    <div class="horizontal-container">
+        <div class="section-header" style="padding: 0 5vw 3rem;">
+            <h2 style="font-size: 4rem;">Signature Expertise</h2>
+        </div>
+        <div class="horizontal-wrapper">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop" alt="Laser">
+                <h3>Laser Therapy</h3>
+                <p style="font-size: 1.2rem; line-height: 1.6;">Pico and Q-Switch lasers for flawless skin tone, removing pigmentation and illuminating your deepest glow.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop" alt="Injectables">
+                <h3>Facial Contouring</h3>
+                <p style="font-size: 1.2rem; line-height: 1.6;">Premium dermal fillers and relaxants crafted to sculpt jawlines, enhance lips, and smooth expression lines.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop" alt="Surgery">
+                <h3>Cosmetic Surgery</h3>
+                <p style="font-size: 1.2rem; line-height: 1.6;">Masterful surgical precision for rhinoplasty, facelifts, and blepharoplasty, performed in pure luxury.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-reveal">
+        <div class="image-reveal-inner">
+            <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2000&auto=format&fit=crop" class="image-reveal-img" alt="Clinic Interior">
+        </div>
+    </div>
+
+    <footer>
+        <h2 class="huge-text">Book Your<br>Masterpiece</h2>
+        <a href="#" style="display:inline-block; margin-top:3rem; padding: 1.5rem 4rem; background: var(--accent); color: white; text-decoration: none; font-size: 1.2rem; border-radius: 100px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Consult Us</a>
+    </footer>
+
+    <!-- Scripts: GSAP + ScrollTrigger + Lenis -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+    <script>
+        // Smooth Scroll Setup (Lenis)
+        const lenis = new Lenis({ duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // Custom Cursor Removed
+
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Preloader Animation
+        gsap.to('.preloader', {
+            yPercent: -100, delay: 1, duration: 1.5, ease: 'expo.inOut'
+        });
+        gsap.from('.gs-hero-text', {
+            yPercent: 100, opacity: 0, delay: 1.5, duration: 1.5, ease: 'expo.out'
+        });
+
+        // Hero Parallax
+        gsap.to('.gs-hero-img', {
+            yPercent: 30, ease: 'none',
+            scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+
+        // Text Reveals
+        gsap.utils.toArray('.gs-reveal').forEach(elem => {
+            gsap.from(elem, {
+                y: 50, opacity: 0, duration: 1, ease: 'power3.out',
+                scrollTrigger: { trigger: elem, start: 'top 80%' }
+            });
+        });
+
+        // Image Parallax
+        gsap.utils.toArray('.gs-parallax-img').forEach(img => {
+            gsap.fromTo(img, 
+                { scale: 1.1, y: -50 }, 
+                { scale: 1, y: 50, ease: 'none', scrollTrigger: { trigger: img, scrub: true }}
+            );
+        });
+
+        // Horizontal Scroll
+        const horizontalWrapper = document.querySelector('.horizontal-wrapper');
+        gsap.to(horizontalWrapper, {
+            xPercent: -66.66, ease: 'none',
+            scrollTrigger: {
+                trigger: '.horizontal-container', start: 'top top', end: '+=2000',
+                pin: true, scrub: 1
+            }
+        });
+
+        // Image Reveal Full Screen Scale
+        gsap.to('.image-reveal-img', {
+            scale: 1, yPercent: 10, ease: 'none',
+            scrollTrigger: { trigger: '.image-reveal', start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+
+        // Auto-scroll loop so parent iframe can showcase it automatically
+        let autoScrollInterval;
+        document.body.addEventListener('mousemove', (e) => {
+            const yPos = e.clientY / window.innerHeight;
+            clearInterval(autoScrollInterval);
+            if (yPos > 0.7) {
+                autoScrollInterval = setInterval(() => window.scrollBy({top: window.innerHeight * 0.015}), 16);
+            } else if (yPos < 0.3) {
+                autoScrollInterval = setInterval(() => window.scrollBy({top: -window.innerHeight * 0.015}), 16);
+            }
+        });
+        document.body.addEventListener('mouseleave', () => clearInterval(autoScrollInterval));
+
+    </script>
+</body>
+</html>

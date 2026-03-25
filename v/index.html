@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voxel | Digital Presence Studio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Calendly link widget -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="dark-mode">
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <h1 class="preloader-logo">
+                <div class="logo-3d-wrapper">
+                    <span class="char">V</span><span class="char">O</span><span class="char">X</span><span class="char">E</span><span class="char">L</span><span class="dot">.</span>
+                </div>
+            </h1>
+            <div class="preloader-counter">0%</div>
+        </div>
+    </div>
+
+    <!-- Three.js Background -->
+    <canvas id="voxel-canvas"></canvas>
+
+    <!-- Background Gradient Glow -->
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="logo">VOXEL<span class="dot">.</span></div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="btn-primary" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/voxel/30min'});return false;">Book a Call</button>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="stagger-text">Building Digital Presence<br>That <span class="text-gradient">Defies Gravity</span></h1>
+                <p class="subtitle stagger-text"><strong>Vansh Dixena</strong> | Co-Founder & CEO, Voxel</p>
+                <p class="description stagger-text">I help doctors, architects, lawyers, restaurant owners, and chartered accountants transform their reputation into premium digital experiences.</p>
+                <div class="hero-cta stagger-text">
+                    <a href="#work" class="btn-secondary">Explore My Work</a>
+                    <button class="btn-primary" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/voxel/30min'});return false;">Book a Call</button>
+                </div>
+            </div>
+            <div class="hero-visual stagger-text">
+                <div class="profile-card floating">
+                    <!-- High-quality photo placeholder -->
+                    <img src="./Whisk_cdozyzyij2nlr2y40inwedotityirtlzeto30im.png" alt="Vansh Dixena" class="profile-img">
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="section-header">
+                <h2>Our <span class="text-gradient">Services</span></h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card floating-hover">
+                    <i data-lucide="layout" class="icon"></i>
+                    <h3>Digital Foundations</h3>
+                    <p>Custom websites that reflect your professional stature with stunning aesthetics and flawless performance.</p>
+                </div>
+                <div class="service-card floating-hover" style="transition-delay: 0.1s">
+                    <i data-lucide="video" class="icon"></i>
+                    <h3>Moving Stories</h3>
+                    <p>Cinematic videos that showcase your expertise, capturing your essence visually.</p>
+                </div>
+                <div class="service-card floating-hover" style="transition-delay: 0.2s">
+                    <i data-lucide="message-circle" class="icon"></i>
+                    <h3>Digital Conversations</h3>
+                    <p>Social media strategy that builds communities and fosters engagement effortlessly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="work">
+            <div class="section-header">
+                <h2>Featured <span class="text-gradient">Work</span></h2>
+            </div>
+            <div class="work-grid">
+                <!-- Project 1 -->
+                <div class="project-card floating-hover view-case-study" data-modal="project-1">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop" alt="Dr. Kapoor Clinic">
+                    </div>
+                    <div class="project-info">
+                        <span class="category">Medical | Delhi</span>
+                        <h3>Dr. Kapoor's Aesthetic Clinic</h3>
+                        <div class="view-case">View Case Study <i data-lucide="arrow-right"></i></div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card floating-hover view-case-study" data-modal="project-2">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop" alt="Sharma & Associates">
+                    </div>
+                    <div class="project-info">
+                        <span class="category">Finance | Delhi</span>
+                        <h3>Sharma & Associates CA</h3>
+                        <div class="view-case">View Case Study <i data-lucide="arrow-right"></i></div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card floating-hover view-case-study" data-modal="project-3">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=800&auto=format&fit=crop" alt="Le Château">
+                    </div>
+                    <div class="project-info">
+                        <span class="category">Restaurant | Mumbai</span>
+                        <h3>Le Château French Dining</h3>
+                        <div class="view-case">View Case Study <i data-lucide="arrow-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="about-container glass-card">
+                <div class="about-img profile-card">
+                    <img src="./Whisk_c67d17104d851d3a6ea437bd8afa011bdr.png" alt="Vansh Dixena" class="profile-img">
+                    <div class="card-glow"></div>
+                </div>
+                <div class="about-content">
+                    <h2><span class="text-gradient">About Me</span></h2>
+                    <h3>Vansh Dixena — Co-Founder & CEO</h3>
+                    <p>I am passionate about creating digital experiences that leave a lasting impression. With a keen eye for design and a deep understanding of digital strategy, I help professionals elevate their online presence.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Satisfaction</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Cities Served</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="section-header">
+                <h2>Get In <span class="text-gradient">Touch</span></h2>
+                <p>Let's build something extraordinary together.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-methods">
+                    <a href="https://wa.me/919406040629?text=Hi%20Vansh%2C%20I%20saw%20your%20Voxel%20website%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" class="contact-card floating-hover whatsapp">
+                        <i data-lucide="message-square" class="icon"></i>
+                        <div class="text-content">
+                            <h4>WhatsApp</h4>
+                            <p>Chat directly with me</p>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:+919406040629" class="contact-card floating-hover phone">
+                        <i data-lucide="phone" class="icon"></i>
+                        <div class="text-content">
+                            <h4>Call Me</h4>
+                            <p>+91 9406040629</p>
+                        </div>
+                    </a>
+                    
+                    <a href="mailto:vansh@voxel.co.in" class="contact-card floating-hover email">
+                        <i data-lucide="mail" class="icon"></i>
+                        <div class="text-content">
+                            <h4>Email</h4>
+                            <p>vansh@voxel.co.in</p>
+                        </div>
+                    </a>
+                    
+                    <a href="https://instagram.com/voxelco.in" target="_blank" class="contact-card floating-hover instagram">
+                        <i data-lucide="instagram" class="icon"></i>
+                        <div class="text-content">
+                            <h4>Instagram</h4>
+                            <p>@voxelco.in</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="contact-form-container glass-card">
+                    <form action="https://formspree.io/f/placeholder" method="POST" class="contact-form">
+                        <div class="input-group">
+                            <input type="text" name="name" required placeholder="Your Name">
+                        </div>
+                        <div class="input-group">
+                            <input type="email" name="email" required placeholder="Your Email">
+                        </div>
+                        <div class="input-group">
+                            <textarea name="message" rows="4" required placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">VOXEL<span class="dot">.</span></div>
+            <p>&copy; 2026 Voxel Studio. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-icon"><i data-lucide="twitter"></i></a>
+                <a href="#" class="social-icon"><i data-lucide="linkedin"></i></a>
+                <a href="https://instagram.com/voxelco.in" class="social-icon" target="_blank"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals for Case Studies -->
+    <div id="modal-overlay" class="modal-overlay"></div>
+    
+    <!-- Project 1 Modal -->
+    <div id="project-1" class="modal" data-lenis-prevent>
+        <button class="close-modal" aria-label="Close modal"><i data-lucide="x"></i></button>
+        <div class="modal-content">
+            <div class="modal-image" style="background-image: url('https://placehold.co/1200x400/1A1A1A/00D4FF?text=Medical+Clinic+Hero')"></div>
+            <div class="modal-body">
+                <span class="modal-category">Medical | Delhi</span>
+                <h2>Dr. Kapoor's Aesthetic Clinic</h2>
+                <div class="modal-section">
+                    <h3>Challenge</h3>
+                    <p>The clinic needed a premium digital experience to attract high-end clientele and facilitate remote consultations for international patients.</p>
+                </div>
+                <div class="modal-section">
+                    <h3>Solution</h3>
+                    <p>We built a luxurious custom website with an integrated virtual consultation booking system, produced a series of patient education and testimonial videos, and designed an aesthetic Instagram strategy.</p>
+                </div>
+                <div class="modal-grid">
+                    <div class="modal-box glass-card">
+                        <h3>Results</h3>
+                        <p class="highlight">300%</p>
+                        <p>Increase in international patients.</p>
+                    </div>
+                    <div class="modal-box glass-card">
+                        <h3>Services</h3>
+                        <ul>
+                            <li>Web Development</li>
+                            <li>Video Production</li>
+                            <li>Social Media Strategy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mockup-container">
+                    <div class="mockup-header">
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <!-- Live Website Iframe (Auto-scrolls on hover) -->
+                        <iframe src="./clinic.html" title="Website Preview" class="mockup-iframe" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/voxel/30min'});return false;">Discuss a similar project</button>
+                    <a href="./clinic.html" target="_blank" class="btn-outline">Visit Live Website <i data-lucide="external-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Project 2 Modal -->
+    <div id="project-2" class="modal" data-lenis-prevent>
+        <button class="close-modal"><i data-lucide="x"></i></button>
+        <div class="modal-content">
+            <div class="modal-image" style="background-image: url('https://placehold.co/1200x400/1A1A1A/00D4FF?text=Finance+Corporate+Hero')"></div>
+            <div class="modal-body">
+                <span class="modal-category">Finance | Delhi</span>
+                <h2>Sharma & Associates CA</h2>
+                <div class="modal-section">
+                    <h3>Challenge & Solution</h3>
+                    <p>A legacy finance firm needing a modern approach. We executed a complete corporate rebranding alongside a lightning-fast new website, series of financial explainer videos, and a targeted LinkedIn strategy for B2B client acquisition.</p>
+                </div>
+                <div class="modal-grid">
+                    <div class="modal-box glass-card">
+                        <h3>Results</h3>
+                        <p class="highlight">200%</p>
+                        <p>Increase in online consultations.</p>
+                    </div>
+                    <div class="modal-box glass-card">
+                        <h3>Services</h3>
+                        <ul>
+                            <li>Corporate Website</li>
+                            <li>Explainer Videos</li>
+                            <li>LinkedIn Strategy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mockup-container">
+                    <div class="mockup-header">
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <!-- Live Website Iframe (Auto-scrolls on hover) -->
+                        <iframe src="./finance.html" title="Website Preview" class="mockup-iframe" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/voxel/30min'});return false;">Discuss a similar project</button>
+                    <a href="./finance.html" target="_blank" class="btn-outline">Visit Live Website <i data-lucide="external-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 3 Modal -->
+    <div id="project-3" class="modal" data-lenis-prevent>
+        <button class="close-modal"><i data-lucide="x"></i></button>
+        <div class="modal-content">
+            <div class="modal-image" style="background-image: url('https://placehold.co/1200x400/1A1A1A/00D4FF?text=Luxury+Dining+Hero')"></div>
+            <div class="modal-body">
+                <span class="modal-category">Restaurant | Mumbai</span>
+                <h2>Le Château French Dining</h2>
+                <div class="modal-section">
+                    <h3>Challenge & Solution</h3>
+                    <p>Creating a digital experience as exquisite as their cuisine. We designed a luxury digital presence featuring cinematic food videography and an immersive, reservation-focused website optimized for emotional engagement.</p>
+                </div>
+                <div class="modal-grid">
+                    <div class="modal-box glass-card">
+                        <h3>Results</h3>
+                        <p class="highlight">65%</p>
+                        <p>Increase in digital reservations.</p>
+                    </div>
+                    <div class="modal-box glass-card">
+                        <h3>Services</h3>
+                        <ul>
+                            <li>Website Development</li>
+                            <li>Food Videography</li>
+                            <li>Social Media Management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mockup-container">
+                    <div class="mockup-header">
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <!-- Live Website Iframe (Auto-scrolls on hover) -->
+                        <iframe src="./restaurant.html" title="Website Preview" class="mockup-iframe" frameborder="0"></iframe>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <h3>Featured Menu (Preview)</h3>
+                    <div class="menu-grid">
+                        <div class="dish-card">
+                            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=600&auto=format&fit=crop" alt="Salmon en Croûte" class="dish-img">
+                            <div class="dish-info">
+                                <div class="dish-name">Salmon en Croûte</div>
+                                <div class="dish-price">₹2,800</div>
+                                <div class="dish-desc">Norwegian salmon baked in a buttery puff pastry with wild mushroom duxelles and dill cream sauce.</div>
+                            </div>
+                        </div>
+                        <div class="dish-card">
+                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop" alt="Coq au Vin" class="dish-img">
+                            <div class="dish-info">
+                                <div class="dish-name">Coq au Vin Traditionnel</div>
+                                <div class="dish-price">₹2,200</div>
+                                <div class="dish-desc">Tender chicken braised in rich Burgundy wine with lardons and delicate mushrooms.</div>
+                            </div>
+                        </div>
+                        <div class="dish-card">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=600&auto=format&fit=crop" alt="Crème Brûlée" class="dish-img">
+                            <div class="dish-info">
+                                <div class="dish-name">Classic Crème Brûlée</div>
+                                <div class="dish-price">₹950</div>
+                                <div class="dish-desc">Silky vanilla bean custard beneath a flawlessly caramelized sugar crust.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/voxel/30min'});return false;">Book a Reservation</button>
+                    <a href="./restaurant.html" target="_blank" class="btn-outline">Visit Live Website <i data-lucide="external-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Lenis, GSAP, Three.js -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Custom Application Logic -->
+    <script src="./main.js"></script>
+</body>
+</html>
